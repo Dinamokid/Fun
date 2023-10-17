@@ -1,0 +1,7 @@
+﻿**/.env
+**/.vs
+**/.vscode
+**/.idea
+**/bin
+**/obj
+**/Fun.sln.DotSettings.user
