@@ -4,24 +4,26 @@ namespace CustomWget;
 
 internal static class Program
 {
-    private static readonly CancellationTokenSource cts = new();
-    
+    private static readonly CancellationTokenSource Cts = new();
+
     private static async Task Main(string[] args)
     {
-        var (url, fileName) = ParseArgs(args);
-
         Console.CancelKeyPress += OnCtrlC!;
-        
-        var downloader = new Downloader();
-        
-        await downloader.DownloadWithInfo(url, fileName, cts.Token);
+
+        await Execute(args).SuppressWithMessage();
     }
     
+    private static async Task Execute(IReadOnlyList<string> args)
+    {
+        var (url, fileName) = ParseArgs(args);
+        await Downloader.DownloadWithInfoAsync(url, fileName, Cts.Token);
+    }
+
     private static void OnCtrlC(object sender, ConsoleCancelEventArgs args)
     {
         args.Cancel = true;
-        cts.Cancel();
-        
+        Cts.Cancel();
+
         Console.WriteLine("Cleaning up. please wait...");
     }
 
@@ -31,14 +33,14 @@ internal static class Program
         {
             throw new ValidationException("Please use like 'customWget google.com/file.pdf'");
         }
-            
+
         var url = args[0];
         var fileName = url.Split('/').LastOrDefault();
         if (string.IsNullOrEmpty(fileName) || !fileName.Contains('.'))
         {
             throw new ValidationException("Please specify file name with extension");
         }
-            
+
         return (url, fileName);
     }
 }
