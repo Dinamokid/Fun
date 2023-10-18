@@ -5,11 +5,6 @@ public static class TaskExtension
 {
     public static TaskAwaiter GetAwaiter(this Func<Task>[] lambdas)
     {
-        // var tasks = lambdas.Select(l => Task.Run(async delegate
-        // {
-        //     await l();
-        // }));
-        
         var tasks = lambdas.Select(l => Task.Run(async delegate
         {
             await l().ConfigureAwait(false);

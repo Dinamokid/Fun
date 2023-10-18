@@ -10,10 +10,10 @@ internal static class Program
     {
         Console.CancelKeyPress += OnCtrlC!;
 
-        await Execute(args).SuppressWithMessage();
+        await ExecuteAsync(args).SuppressWithMessageAsync();
     }
     
-    private static async Task Execute(IReadOnlyList<string> args)
+    private static async Task ExecuteAsync(IReadOnlyList<string> args)
     {
         var (url, fileName) = ParseArgs(args);
         await Downloader.DownloadWithInfoAsync(url, fileName, Cts.Token);

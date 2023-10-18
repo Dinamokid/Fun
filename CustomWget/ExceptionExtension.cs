@@ -2,7 +2,7 @@
 
 public static class ExceptionExtension
 {
-    public static async Task IgnoreOnCancellation(this Task task)
+    public static async Task IgnoreOnCancellationAsync(this Task task)
     {
         try
         {
@@ -14,7 +14,7 @@ public static class ExceptionExtension
         }
     }
 
-    public static async Task SuppressWithMessage(this Task task)
+    public static async Task SuppressWithMessageAsync(this Task task)
     {
         try
         {
